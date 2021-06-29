@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,23 +14,38 @@ namespace WebApplicationPizza.Controllers
     public class StandardPizzaController : ControllerBase
     {
         private readonly StandardPizzaService db;
+
         public StandardPizzaController(StandardPizzaService context)
         {
             db = context;
         }
 
         [HttpGet("balance")]
-        public async Task<string> CalculateBalance()
+        public async Task<ActionResult> CalculateBalance()
         {
-            var sum = await db.CalculateBalance();
-            return "Balance:" + sum;
+            try
+            {
+                var sum = await db.CalculateBalance();
+                return Ok("Balance:" + sum);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpGet("menu")]
-        public async Task<IEnumerable<Pizza>> Menu()
+        public async Task<ActionResult> Menu()
         {
-            var pizzas = await db.GetPizzas();
-            return pizzas;
+            try
+            {
+                var pizzas = await db.GetPizzas();
+                return Ok(pizzas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpPost("createOrder")]

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,10 +21,17 @@ namespace WebApplicationPizza.Controllers
         }
 
         [HttpGet("getIngredients")]
-        public async Task<IEnumerable<Ingredient>> GetIngredients()
+        public async Task<ActionResult> GetIngredients()
         {
-            var ingredients = await db.GetIngredients();
-            return ingredients;
+            try
+            {
+                var ingredients = await db.GetIngredients();
+                return Ok(ingredients);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpPost("createOrder")]
