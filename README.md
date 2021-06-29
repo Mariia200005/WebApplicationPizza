@@ -7,8 +7,10 @@ To use this system you need to download mongodb and do next steps:
  use pizzeria
 2. For creating collection: "Pizza":
  db.Pizza.insertMany([{"Name":"Calzone","Price":220, "Ingredients":["Ham","Oregano","Mushrooms","Mozzarella"]}, {"Name": "Margarita", "Price": 180, "Ingredients": ["Mozzarella", "Basil", "Tomatoes", "Olive oil"]}, { "Name": "Papperoni",  "Price": 200, "Ingredients": ["Mozzarella", "Papperoni", "Parmesan", "Oregano"]}])
+
 3. For creating collection "Order":
  db.createCollection("Order")
+
 4. For creating collection "Ingredient":
  db.Ingredient.insertMany([{
     "Name": "Parmesan",
