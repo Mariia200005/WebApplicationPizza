@@ -17,6 +17,7 @@ namespace WebApplicationPizza.Controllers
 
         public StandardPizzaController(StandardPizzaService context)
         {
+            //comment1
             db = context;
         }
 
@@ -26,7 +27,7 @@ namespace WebApplicationPizza.Controllers
             try
             {
                 var sum = await db.CalculateBalance();
-                return Ok("Balance:" + sum);
+                return Ok("Balance1:" + sum);
             }
             catch (Exception ex)
             {
